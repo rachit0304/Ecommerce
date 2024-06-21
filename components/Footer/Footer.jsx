@@ -46,7 +46,6 @@ const Footer = () => {
           </Box>        
           </Grid>
 
-
           <Grid item xs={12} sm={6} md={3}>
           <Typography className='pb-5' variant='h6'> Documentation </Typography>
           <Box>
@@ -56,7 +55,6 @@ const Footer = () => {
           <Button className='pb-5' gutterBottom> API Status </Button>
           </Box>                 
           </Grid>
-
 
           <Grid item xs={12} sm={6} md={3}>
           <Typography className='pb-5' variant='h6'> Legal </Typography>
@@ -71,7 +69,6 @@ const Footer = () => {
           </Box>          
       
           </Grid>
-
 
           <Grid className='pt-20' item xs={12}>
             <Typography variant='body2' component="p" align='center'>
