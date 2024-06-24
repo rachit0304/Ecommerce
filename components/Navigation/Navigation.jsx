@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -19,6 +19,29 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const [anchorE1 , setAnchorE1] = useState(null);
+  const [OpenAuthModal , setOpenAuthModal] = useState(false);
+  const openUserMenu = Boolean(anchorE1);
+
+
+
+  const handleUserClick=(e)=>{
+    setAnchorE1(e.current.target);
+  }
+  const handleCloseUserMenu=(e)=>{
+    setAnchorE1(null)
+  }
+
+  const handleOpen=()=>{
+    setOpenAuthModal(true);
+  }
+  const handleClose=()=>{
+    setOpenAuthModal(fasle);
+  }
+
+  const handleCategoryClick=(category,section,item,close)=>{
+    // close();
+  }
 
   return (
     <div className="bg-white pb-10">
@@ -198,7 +221,7 @@ export default function Navigation() {
               <button
                 type="button"
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
-                
+                onClick={()=> setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -256,7 +279,7 @@ export default function Navigation() {
                                 <div className="mx-auto max-w-7xl px-8">
                                   <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                     <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {navigation.categories.featured.map((item) => (
+                                      {category.featured.map((item) => (
                                         <div
                                           key={item.name}
                                           className="group relative text-base sm:text-sm"
@@ -308,7 +331,12 @@ export default function Navigation() {
                                                 className="flex"
                                               >
                                                 <p
-                                              
+                                                  onClick={handleCategoryClick(
+                                                    category,
+                                                    section,
+                                                    item,
+                                                    close
+                                                  )}
                                                   className="cursor-pointer hover:text-gray-800"
                                                 >
                                                   {item.name}
@@ -343,7 +371,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {auth.user ? (
+                  {true ? (
                     <div>
                       <Avatar
                         className="text-white"
@@ -360,30 +388,30 @@ export default function Navigation() {
                       >
                         
                       </Avatar>
-                      {/* <Button
-                        id="basic-button"
-                        aria-controls={open ? "basic-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                        onClick={handleUserClick}
-                      >
-                        Dashboard
-                      </Button> */}
+   
                       <Menu
                         id="basic-menu"
-                   
+                        anchorEl={anchorE1}
+                        open={openUserMenu}
+                        onClose={handleCloseUserMenu}
+                                   
                         MenuListProps={{
                           "aria-labelledby": "basic-button",
                         }}
                       >
+
+                        <MenuItem  onClick={handleCloseUserMenu}>
+                        Profile
+                        </MenuItem>
                         <MenuItem >
+                        My Orders
                         </MenuItem>
                         <MenuItem >Logout</MenuItem>
                       </Menu>
                     </div>
                   ) : (
                     <Button
-                    
+                      onClick={handleOpen}
                       className="text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       Signin
