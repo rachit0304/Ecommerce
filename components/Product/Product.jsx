@@ -22,13 +22,7 @@ const sortOptions = [
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
 ]
-const subCategories = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
-  { name: 'Travel Bags', href: '#' },
-  { name: 'Hip Bags', href: '#' },
-  { name: 'Laptop Sleeves', href: '#' },
-]
+
 const filters = [
   {
     id: 'color',
@@ -103,16 +97,7 @@ export default function Product() {
 
               {/* Filters */}
               <form className="mt-4 border-t border-gray-200">
-                <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href} className="block px-2 py-3">
-                        {category.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+               
 
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
@@ -163,7 +148,7 @@ export default function Product() {
 
         <main className="mx-auto px-4 sm:px-6 lg:px-20">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Products</h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -225,14 +210,6 @@ export default function Product() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
               {/* Filters */}
               <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
-                </ul>
 
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
@@ -281,7 +258,7 @@ export default function Product() {
               {/* Product grid */}
               <div className="lg:col-span-4 w-full">
                 <div className='flex flex-wrap justify-center bg-white py-5'>
-                    {kurtaPage1.map((item)=><ProductCard/>)}
+                    {kurtaPage1.map((item)=><ProductCard item={item}/>)}
                 </div>
               </div>
             </div>
