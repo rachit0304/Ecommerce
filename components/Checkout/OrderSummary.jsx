@@ -1,10 +1,16 @@
-import React from "react";
-import CartItem from "./CartItem";
-import { Button } from "@mui/material";
+import React from 'react'
+import AddressCard from '../AddressCard/AddressCard'
+import { Button } from '@mui/material'
+import CartItem from '../Cart/CartItem'
 
-const Cart = () => {
+const OrderSummary = () => {
   return (
     <div>
+      <div className='p-5 shadow-lg rounded-5-md border'>
+        <AddressCard/>
+
+      </div>
+
       <div className="lg:grid grid-cols-3 lg:px-16 relative">
         <div className="col-span-2">
           {[1,1,1,1,].map((item=> <CartItem />))}
@@ -44,7 +50,7 @@ const Cart = () => {
       </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Cart;
+export default OrderSummary
