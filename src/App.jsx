@@ -8,23 +8,19 @@ import ProductDetails from '../components/ProductDetails/ProductDetails'
 import Cart from '../components/Cart/Cart'
 import Checkout from '../components/Checkout/Checkout'
 import Order from '../components/Order/Order'
+import CustomerRouters from './Routers/CustomerRouters'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
 
   return (
     <div>
-      <Navigation/>
-      {/* <div>
-        <Product/>
-      </div> */}
-      <div>
-        {/* <ProductDetails/> */}
-      </div>
-      {/* <Cart/> */}
-      {/* <HomePage/> */}
-      {/* <Checkout/> */}
-      <Order/>
-      <Footer/> 
+
+      <Routes>
+        <Route path='/*' element={<CustomerRouters/>}></Route>
+        <Route></Route>
+      </Routes>
+
     </div>
   )
 }
