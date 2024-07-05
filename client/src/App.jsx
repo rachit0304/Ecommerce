@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navigation from '../components/Navigation/Navigation'
-import HomePage from '../pages/HomePage'
+import HomePage from '../../pages/HomePage'
 import Footer from '../components/Footer/Footer'
 import Product from '../components/Product/Product'
 import ProductDetails from '../components/ProductDetails/ProductDetails'
