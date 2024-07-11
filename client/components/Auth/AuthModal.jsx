@@ -34,7 +34,7 @@ export default function AuthModal({ handleClose, open }) {
   return (
     <>
     <Modal
-      open={true}
+      open={open}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
