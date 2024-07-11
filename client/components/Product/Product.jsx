@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   Dialog,
-  DialogPanel,
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
@@ -79,7 +78,7 @@ export default function Product() {
           /> */}
 
           <div className="fixed inset-0 z-40 flex">
-            <DialogPanel
+            <div
               transition
               className="relative ml-auto flex h-full w-full max-w-xs transform flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl transition duration-300 ease-in-out data-[closed]:translate-x-full"
             >
@@ -142,7 +141,7 @@ export default function Product() {
                   </Disclosure>
                 ))}
               </form>
-            </DialogPanel>
+            </div>
           </div>
         </Dialog>
 

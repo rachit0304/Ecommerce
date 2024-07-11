@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -7,12 +7,14 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
-import { navigation } from "./navigation";
+import { navigation } from "../../src/config/navigationMenu";
+import AuthModal from "../Auth/AuthModal";
+import { useDispatch, useSelector } from "react-redux";
 import { deepPurple } from "@mui/material/colors";
-
-import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
+import { getUser, logout } from "../../src/Redux/Auth/Action";
+import { getCart } from "../../src/Redux/Customers/Cart/Action";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -21,29 +23,57 @@ function classNames(...classes) {
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const [anchorE1 , setAnchorE1] = useState(null);
-  const [OpenAuthModal , setOpenAuthModal] = useState(false);
-  const openUserMenu = Boolean(anchorE1);
+  const dispatch = useDispatch();
+  const { auth,cart } = useSelector((store) => store);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openUserMenu = Boolean(anchorEl);
+  const jwt = localStorage.getItem("jwt");
+  const location=useLocation();
 
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUser(jwt));
+      dispatch(getCart(jwt));
+    }
+  }, [jwt]);
+  
+  const handleUserClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseUserMenu = (event) => {
+    setAnchorEl(null);
+  };
 
-
-  const handleUserClick=(e)=>{
-    setAnchorE1(e.current.target);
-  }
-  const handleCloseUserMenu=(e)=>{
-    setAnchorE1(null)
-  }
-
-  const handleOpen=()=>{
+  const handleOpen = () => {
     setOpenAuthModal(true);
-  }
-  const handleClose=()=>{
-    setOpenAuthModal(fasle);
-  }
+  };
+  const handleClose = () => {
+    setOpenAuthModal(false);
+   
+  };
 
-  const handleCategoryClick=(category,section,item,close)=>{
-    navigate(`${category.id}/${section.id}/${item.id}`);
+  const handleCategoryClick = (category, section, item, close) => {
+    navigate(`/${category.id}/${section.id}/${item.id}`);
     close();
+  };
+
+  useEffect(() => {
+    if (auth.user){ 
+      handleClose();
+    }
+    if( auth.user?.role!=="ADMIN" && (location.pathname==="/login" || location.pathname==="/register")){
+      navigate(-1)
+    }
+  }, [auth.user]);
+
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    dispatch(logout());
+  };
+  const handleMyOrderClick=()=>{
+    handleCloseUserMenu()
+    navigate("/account/order")
   }
 
   return (
@@ -224,7 +254,7 @@ export default function Navigation() {
               <button
                 type="button"
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
-                onClick={()=> setOpen(true)}
+                onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -232,14 +262,14 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                
+                <Link to="/">
                   <span className="sr-only">Your Company</span>
                   <img
                     src="https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png"
                     alt="Shopwithzosh"
                     className="h-8 w-8 mr-2"
                   />
-                
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -272,7 +302,7 @@ export default function Navigation() {
                             leaveTo="opacity-0"
                           >
                             <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
-                 
+                              {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                               <div
                                 className="absolute inset-0 top-1/2 bg-white shadow"
                                 aria-hidden="true"
@@ -334,12 +364,14 @@ export default function Navigation() {
                                                 className="flex"
                                               >
                                                 <p
-                                                  onClick={()=>handleCategoryClick(
-                                                    category,
-                                                    section,
-                                                    item,
-                                                    close
-                                                  )}
+                                                  onClick={() =>
+                                                    handleCategoryClick(
+                                                      category,
+                                                      section,
+                                                      item,
+                                                      close
+                                                    )
+                                                  }
                                                   className="cursor-pointer hover:text-gray-800"
                                                 >
                                                   {item.name}
@@ -374,7 +406,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true ? (
+                  {auth.user ? (
                     <div>
                       <Avatar
                         className="text-white"
@@ -389,27 +421,34 @@ export default function Navigation() {
                           cursor: "pointer",
                         }}
                       >
-                        
+                        {auth.user?.firstName[0].toUpperCase()}
                       </Avatar>
-   
+                      {/* <Button
+                        id="basic-button"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={handleUserClick}
+                      >
+                        Dashboard
+                      </Button> */}
                       <Menu
                         id="basic-menu"
-                        anchorEl={anchorE1}
+                        anchorEl={anchorEl}
                         open={openUserMenu}
                         onClose={handleCloseUserMenu}
-                                   
                         MenuListProps={{
                           "aria-labelledby": "basic-button",
                         }}
                       >
-
-                        <MenuItem  onClick={handleCloseUserMenu}>
-                        Profile
+                        <MenuItem onClick={handleCloseUserMenu}>
+                          Profile
                         </MenuItem>
-                        <MenuItem onClick={()=>navigate(`/account/order`)} >
-                        My Orders
+                        
+                        <MenuItem onClick={handleMyOrderClick}>
+                          My Orders
                         </MenuItem>
-                        <MenuItem >Logout</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </Menu>
                     </div>
                   ) : (
@@ -423,11 +462,9 @@ export default function Navigation() {
                 </div>
 
                 {/* Search */}
-                <div className="flex items-center lg:ml-6">
-                
+                <div className="flex lg:ml-6">
                   <p className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
-                    
                     <MagnifyingGlassIcon
                       className="h-6 w-6"
                       aria-hidden="true"
@@ -438,6 +475,7 @@ export default function Navigation() {
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Button
+                    onClick={() => navigate("/cart")}
                     className="group -m-2 flex items-center p-2"
                   >
                     <ShoppingBagIcon
@@ -445,6 +483,7 @@ export default function Navigation() {
                       aria-hidden="true"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                      {cart.cart?.totalItem}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Button>
@@ -454,6 +493,7 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+      <AuthModal handleClose={handleClose} open={openAuthModal} />
     </div>
   );
 }
