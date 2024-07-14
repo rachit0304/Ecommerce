@@ -36,9 +36,7 @@ const RateProduct = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
-
-    dispatch(createReview({review:formData.title,productId,rating}))
+    dispatch(createReview({review:formData.title + "," + formData.description + ","+ rating ,productId}))
     setFormData({title:"",description:""})
     navigate(`/product/${productId}`)
 
@@ -46,6 +44,7 @@ const RateProduct = () => {
   useEffect(() => {
     dispatch(findProductById({ productId }));
   }, []);
+
   return (
     <div className=" mb-4">
       <h1 className="text-xl p-5 shadow-lg mb-4 font-bold">
@@ -62,6 +61,7 @@ const RateProduct = () => {
               <Rating
                 name="simple-controlled"
                 value={rating}
+                precision={0.5}
                 onChange={(event, newValue) => {
                   handleRateProduct(event, newValue);
                 }}

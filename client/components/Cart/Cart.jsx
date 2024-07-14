@@ -11,11 +11,11 @@ const Cart = () => {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   const {cart}=useSelector(store=>store);
-  console.log("cart ",cart)
+  let dependency = cart.cart ? cart?.cart : jwt;
 
   useEffect(() => {
     dispatch(getCart(jwt));
-  }, [jwt]);
+  }, [dependency]);
   return (
     <div className="">
       {cart.cartItems.length>0 ? <div className="lg:grid grid-cols-3 lg:px-16 relative">

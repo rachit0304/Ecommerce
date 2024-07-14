@@ -91,8 +91,7 @@ export default function ProductDetails() {
     const data = { productId: productId, jwt };
     dispatch(findProductById(data));
     dispatch(getAllReviews(productId));
-    console.log("data",customersProduct);
-    console.log("productId",review);
+
 
   }, [productId]);
 
@@ -347,7 +346,7 @@ export default function ProductDetails() {
                     readOnly
                   />
 
-                  <p className="opacity-60">42807 Ratings</p>
+                  <p className="opacity-60">{review.reviews.length} Ratings</p>
                 </div>
                 <Box>
                   <Grid
@@ -374,28 +373,7 @@ export default function ProductDetails() {
                   </Grid>
                 </Box>
                 <Box>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    gap={2}
-                  >
-                    <Grid item xs={2}>
-                      <p className="p-0">Very Good</p>
-                    </Grid>
-                    <Grid xs={7}>
-                      <LinearProgress
-                        className=""
-                        sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
-                        variant="determinate"
-                        value={30}
-                        color="success"
-                      />
-                    </Grid>
-                    <Grid  item xs={2}>
-                      <p className="opacity-50 p-2">825</p>
-                    </Grid>
-                  </Grid>
+
                 </Box>
                 <Box>
                   <Grid
@@ -481,15 +459,7 @@ export default function ProductDetails() {
           </div>
         </section>
 
-        {/* similer product */}
-        <section className=" pt-10">
-          <h1 className="py-5 text-xl font-bold">Similer Products</h1>
-          <div className="flex flex-wrap space-y-5">
-            {/* {customersProduct?.products.map((item) => (
-              <ProductCard product={item} />
-            ))} */}
-          </div>
-        </section>
+
       </div>
     </div>
   );

@@ -3,7 +3,8 @@ import { Avatar } from "@mui/material";
 import { Rating, Box, Typography, Grid } from "@mui/material";
 
 const ProductReviewCard = ({item}) => {
-  console.log("review card" , item);
+
+  const splitReview = item.review.split(',');
   const [value, setValue] = useState(0);
   const date = new Date();
   let day = date.getDate();
@@ -18,10 +19,10 @@ const ProductReviewCard = ({item}) => {
             <Avatar
               className="text-white"
               sx={{ width: 56, height: 56, bgcolor: "#9155FD" }}
-              alt={item?.user}
+              alt={item?.user?.firstName || ""}
               src=""
             >
-              {item?.user}
+              {item?.user?.firstName || ""}
             </Avatar>
           </Box>
         </Grid>
@@ -29,21 +30,24 @@ const ProductReviewCard = ({item}) => {
           <div className="space-y-2">
             <div className="">
               <p className="font-semibold text-lg">{item.user?.firstName}</p>
-              <p className="opacity-70">h</p>
+              <p className="opacity-70">{day}-{month}-{year}</p>
             </div>
             <div>
             
 
               <Rating
-                value={value}
+                value={splitReview[2]}
                 name="half-rating"
                 defaultValue={2.5}
                 precision={0.5}
               />
              
             </div>
+            <p className="font-bold">
+              {splitReview[0]}
+            </p>
             <p>
-              {item?.review}
+              {splitReview[1]}
             </p>
           </div>
         </Grid>

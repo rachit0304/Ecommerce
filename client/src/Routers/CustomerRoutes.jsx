@@ -18,6 +18,7 @@ import Checkout from "../../components/Checkout/Checkout";
 import Footer from "../../components/footer/Footer";
 import PaymentSuccess from "../../components/paymentSuccess/PaymentSuccess";
 import RateProduct from "../../components/ReviewProduct/RateProduct";
+import NotFound from "../Pages/Notfound"
 
 const CustomerRoutes = () => {
     const location = useLocation();
@@ -50,7 +51,7 @@ const CustomerRoutes = () => {
         <Route path="/account/rate/:productId" element={<RateProduct />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer/>
     </ThemeProvider>

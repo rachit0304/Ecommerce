@@ -2,12 +2,13 @@ import React from "react";
 
 import { useNavigate } from "react-router-dom";
 
-const HomeProductCard = ({ product }) => {
+const HomeProductCard = ({ product,data }) => {
+ 
   const navigate = useNavigate();
 
   return (
     <div
-      onClick={() => navigate(`/men/clothing/mens_kurta`)}
+      onClick={() => navigate(`/${data[0]?.topLavelCategory}/${data[0].secondLavelCategory}/${data[0].thirdLavelCategory}`)}
       className="cursor-pointer flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[15rem] mx-3"
     >
       <div className="h-[13rem] w-[10rem]">
