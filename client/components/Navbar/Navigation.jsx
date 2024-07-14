@@ -200,18 +200,6 @@ export default function Navigation() {
                   </Tab.Panels>
                 </Tab.Group>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  {navigation.pages.map((page) => (
-                    <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        {page.name}
-                      </a>
-                    </div>
-                  ))}
-                </div>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
@@ -245,7 +233,7 @@ export default function Navigation() {
 
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
+          Get free delivery on orders over ₹400
         </p>
 
         <nav aria-label="Top" className="mx-auto">
@@ -263,10 +251,10 @@ export default function Navigation() {
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <Link to="/">
-                  <span className="sr-only">Your Company</span>
+                  <span className="sr-only">Rachit's Store</span>
                   <img
                     src="https://res.cloudinary.com/ddkso1wxi/image/upload/v1675919455/Logo/Copy_of_Zosh_Academy_nblljp.png"
-                    alt="Shopwithzosh"
+                    alt="Shopwithrachit"
                     className="h-8 w-8 mr-2"
                   />
                 </Link>
@@ -392,15 +380,6 @@ export default function Navigation() {
                     </Popover>
                   ))}
 
-                  {navigation.pages.map((page) => (
-                    <a
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      {page.name}
-                    </a>
-                  ))}
                 </div>
               </Popover.Group>
 
@@ -423,15 +402,7 @@ export default function Navigation() {
                       >
                         {auth.user?.firstName[0].toUpperCase()}
                       </Avatar>
-                      {/* <Button
-                        id="basic-button"
-                        aria-controls={open ? "basic-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                        onClick={handleUserClick}
-                      >
-                        Dashboard
-                      </Button> */}
+           
                       <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -461,16 +432,6 @@ export default function Navigation() {
                   )}
                 </div>
 
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <p className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  </p>
-                </div>
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">

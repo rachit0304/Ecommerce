@@ -1,6 +1,3 @@
-
-
-
 import {
     CREATE_REVIEW_SUCCESS,
     CREATE_REVIEW_FAILURE,
@@ -14,7 +11,7 @@ import {
 import api from '../../../config/api';
 
 export const createReview = (resData) => {
-  console.log("create review req ",resData)
+  console.log("create review req ", resData)
   return async (dispatch) => {
     try {
       const response = await api.post('/api/reviews/create', 

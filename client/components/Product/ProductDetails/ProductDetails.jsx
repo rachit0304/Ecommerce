@@ -11,14 +11,16 @@ import { addItemToCart } from "../../../src/Redux/Customers/Cart/Action";
 import { getAllReviews } from "../../../src/Redux/Customers/Review/Action";
 import { lengha_page1 } from "../../../src/Data/Women/LenghaCholi";
 import { gounsPage1 } from "../../../src/Data/Gouns/gouns";
+import ProductCard from "../ProductCard/ProductCard";
+import RateProduct from "../../ReviewProduct/RateProduct";
 
 const product = {
-  name: "Basic Tee 6-Pack",
+
   price: "₹996",
   href: "#",
   breadcrumbs: [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
+    { id: 1, name: "Men", href: "/" },
+    { id: 2, name: "Clothing", href: "/" },
   ],
   images: [
     {
@@ -59,7 +61,7 @@ const product = {
   details:
     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 };
-const reviews = { href: "#", average: 4, totalCount: 117 };
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -70,10 +72,10 @@ export default function ProductDetails() {
   const [activeImage, setActiveImage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { customersProduct,review } = useSelector((store) => store);
+  const { customersProduct,review} = useSelector((store) => store);
   const { productId } = useParams();
   const jwt = localStorage.getItem("jwt");
-  // console.log("param",productId,customersProduct.product)
+ 
 
   const handleSetActiveImage = (image) => {
     setActiveImage(image);
@@ -89,9 +91,11 @@ export default function ProductDetails() {
     const data = { productId: productId, jwt };
     dispatch(findProductById(data));
     dispatch(getAllReviews(productId));
+    console.log("data",customersProduct);
+    console.log("productId",review);
+
   }, [productId]);
 
-  // console.log("reviews ",review)
 
   return (
     <div className="bg-white lg:px-20">
@@ -147,18 +151,7 @@ export default function ProductDetails() {
               />
             </div>
             <div className="flex flex-wrap space-x-5 justify-center">
-              {product.images.map((image) => (
-                <div
-                  onClick={() => handleSetActiveImage(image)}
-                  className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg max-w-[5rem] max-h-[5rem] mt-4"
-                >
-                  <img
-                    src={image.src}
-                    alt={product.images[1].alt}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-              ))}
+              
             </div>
           </div>
 
@@ -200,9 +193,9 @@ export default function ProductDetails() {
                     readOnly
                   />
 
-                  <p className="opacity-60 text-sm">42807 Ratings</p>
+                  <p className="opacity-60 text-sm">{customersProduct?.product?.ratings}</p>
                   <p className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    {reviews.totalCount} reviews
+                    { review.reviews.length} Reviews
                   </p>
                 </div>
               </div>
@@ -223,30 +216,30 @@ export default function ProductDetails() {
                       Choose a size
                     </RadioGroup.Label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-10">
-                      {product.sizes.map((size) => (
+                      {customersProduct?.product?.sizes.map((size) => (
                         <RadioGroup.Option
                           key={size.name}
                           value={size}
-                          disabled={!size.inStock}
-                          className={({ active }) =>
+                          disabled={size.quantity == 0}
+                          className={({ focus }) =>
                             classNames(
-                              size.inStock
+                              size.quantity > 0
                                 ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                                 : "cursor-not-allowed bg-gray-50 text-gray-200",
-                              active ? "ring-1 ring-indigo-500" : "",
+                              focus ? "ring-1 ring-indigo-500" : "",
                               "group relative flex items-center justify-center rounded-md border py-1 px-1 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
                             )
                           }
                         >
-                          {({ active, checked }) => (
+                          {({focus,checked }) => (
                             <>
                               <RadioGroup.Label as="span">
                                 {size.name}
                               </RadioGroup.Label>
-                              {size.inStock ? (
+                              {size.quantity > 0 ? (
                                 <span
                                   className={classNames(
-                                    active ? "border" : "border-2",
+                                    focus ? "border" : "border-2",
                                     checked
                                       ? "border-indigo-500"
                                       : "border-transparent",
@@ -321,18 +314,13 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">{product.details}</p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
         {/* rating and review section */}
+
+        <RateProduct/>
         <section className="">
           <h1 className="font-semibold text-lg pb-4">
             Recent Review & Ratings
@@ -342,12 +330,13 @@ export default function ProductDetails() {
             <Grid container spacing={7}>
               <Grid item xs={7}>
                 <div className="space-y-5">
-                  { review.reviews?.map((item, i) => (
+                  {review.reviews?.map((item, i) => (
                     <ProductReviewCard item={item} />
                   ))}
                 </div>
               </Grid>
 
+                  {/* ratings section */}
               <Grid item xs={5}>
                 <h1 className="text-xl font-semibold pb-1">Product Ratings</h1>
                 <div className="flex items-center space-x-3 pb-10">
@@ -367,10 +356,10 @@ export default function ProductDetails() {
                     alignItems="center"
                     gap={2}
                   >
-                    <Grid xs={2}>
+                    <Grid item xs={2}>
                       <p className="p-0">Excellent</p>
                     </Grid>
-                    <Grid xs={7}>
+                    <Grid item xs={7}>
                       <LinearProgress
                         className=""
                         sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
@@ -379,8 +368,8 @@ export default function ProductDetails() {
                         color="success"
                       />
                     </Grid>
-                    <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                    <Grid item xs={2}>
+                      <p className="opacity-50 p-2">1959</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -391,7 +380,7 @@ export default function ProductDetails() {
                     alignItems="center"
                     gap={2}
                   >
-                    <Grid xs={2}>
+                    <Grid item xs={2}>
                       <p className="p-0">Very Good</p>
                     </Grid>
                     <Grid xs={7}>
@@ -403,8 +392,8 @@ export default function ProductDetails() {
                         color="success"
                       />
                     </Grid>
-                    <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                    <Grid  item xs={2}>
+                      <p className="opacity-50 p-2">825</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -415,7 +404,7 @@ export default function ProductDetails() {
                     alignItems="center"
                     gap={2}
                   >
-                    <Grid xs={2}>
+                    <Grid item xs={2}>
                       <p className="p-0">Good</p>
                     </Grid>
                     <Grid xs={7}>
@@ -427,8 +416,8 @@ export default function ProductDetails() {
                         color="orange"
                       />
                     </Grid>
-                    <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                    <Grid item xs={2}>
+                      <p className="opacity-50 p-2">425</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -439,10 +428,10 @@ export default function ProductDetails() {
                     alignItems="center"
                     gap={2}
                   >
-                    <Grid xs={2}>
+                    <Grid item xs={2}>
                       <p className="p-0">Avarage</p>
                     </Grid>
-                    <Grid xs={7}>
+                    <Grid item xs={7}>
                       <LinearProgress
                         className=""
                         sx={{
@@ -458,8 +447,8 @@ export default function ProductDetails() {
                         color="success"
                       />
                     </Grid>
-                    <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                    <Grid item xs={2}>
+                      <p className="opacity-50 p-2">395</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -470,10 +459,10 @@ export default function ProductDetails() {
                     alignItems="center"
                     gap={2}
                   >
-                    <Grid xs={2}>
+                    <Grid item xs={2}>
                       <p className="p-0">Poor</p>
                     </Grid>
-                    <Grid xs={7}>
+                    <Grid item xs={7}>
                       <LinearProgress
                         className=""
                         sx={{ bgcolor: "#d0d0d0", borderRadius: 4, height: 7 }}
@@ -482,8 +471,8 @@ export default function ProductDetails() {
                         color="error"
                       />
                     </Grid>
-                    <Grid xs={2}>
-                      <p className="opacity-50 p-2">19259</p>
+                    <Grid item xs={2}>
+                      <p className="opacity-50 p-2">192</p>
                     </Grid>
                   </Grid>
                 </Box>
@@ -496,9 +485,9 @@ export default function ProductDetails() {
         <section className=" pt-10">
           <h1 className="py-5 text-xl font-bold">Similer Products</h1>
           <div className="flex flex-wrap space-y-5">
-            {gounsPage1.map((item) => (
-              <HomeProductCard product={item} />
-            ))}
+            {/* {customersProduct?.products.map((item) => (
+              <ProductCard product={item} />
+            ))} */}
           </div>
         </section>
       </div>

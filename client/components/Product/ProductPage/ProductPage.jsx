@@ -1,5 +1,5 @@
 import React from "react";
-import { productdata } from "../../../data";
+import { productdata } from "../../../src/data";
 import ProductCard from "../ProductCard/ProductCard";
 
 const ProductPage = () => {
@@ -16,6 +16,7 @@ const ProductPage = () => {
         {/* filter */}
         <div className="w-[20%] border rounded-md bg-white"></div>
         {/* product */}
+      {  console.log("productpage" , productdata)}
 
         <div className="flex  flex-wrap justify-between w-[78%] bg-white border p-5 rounded-md">
           {productdata.map((item) => (

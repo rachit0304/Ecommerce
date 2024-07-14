@@ -29,6 +29,7 @@ import { deepPurple } from "@mui/material/colors";
 import { Backdrop, CircularProgress } from "@mui/material";
 import BackdropComponent from "../../BackDrop/Backdrop";
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -40,6 +41,7 @@ export default function Product() {
   const jwt = localStorage.getItem("jwt");
   const param = useParams();
   const { customersProduct } = useSelector((store) => store);
+  console.log("cproducts===" , customersProduct);
   const location = useLocation();
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
 
@@ -57,8 +59,6 @@ export default function Product() {
   const sortValue = searchParams.get("sort");
   const pageNumber = searchParams.get("page") || 1;
   const stock = searchParams.get("stock");
-
-  // console.log("location - ", colorValue, sizeValue,price,disccount);
 
   const handleSortChange = (value) => {
     const searchParams = new URLSearchParams(location.search);
@@ -459,7 +459,7 @@ export default function Product() {
                 {/* Product grid */}
                 <div className="lg:col-span-4 w-full ">
                   <div className="flex flex-wrap justify-center bg-white border py-5 rounded-md ">
-                    {customersProduct?.products?.content?.map((item) => (
+                    {customersProduct.products && customersProduct?.products?.content?.map((item) => (
                       <ProductCard product={item} />
                     ))}
                   </div>

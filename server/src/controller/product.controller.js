@@ -3,7 +3,7 @@ const productService = require("../services/product.service.js")
 
 // Create a new product
 async function createProduct(req, res) {
-  try {
+  try { 
     const product = await productService.createProduct(req.body);
     return res.status(201).json(product);
   } catch (err) {
@@ -34,14 +34,14 @@ async function updateProduct(req, res) {
 }
 
 // Get all products
-// async function getAllProducts(req, res) {
-//   try {
-//     const products = await productService.getAllProducts();
-//     res.json(products);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// }
+async function getAllProducts(req, res) {
+  try {
+    const products = await productService.getAllProducts();
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 // Find a product by ID
 async function findProductById(req, res) {

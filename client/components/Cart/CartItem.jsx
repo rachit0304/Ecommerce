@@ -16,7 +16,6 @@ const CartItem = ({ item,showButton }) => {
   };
   const handleUpdateCartItem=(num)=>{
     const data={data:{quantity:item.quantity+num}, cartItemId:item?._id, jwt}
-    console.log("update data ",data)
     dispatch(updateCartItem(data))
   }
   return (

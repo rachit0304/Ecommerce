@@ -10,7 +10,7 @@ import { mensShoesPage1 } from "../Data/shoes";
 import { mens_kurta } from "../Data/Men/men_kurta";
 import { lengha_page1 } from "../Data/Women/LenghaCholi";
 
-const HomePage = () => {
+const Homepage = () => {
 
   return (
     <div className="">
@@ -32,4 +32,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Homepage;

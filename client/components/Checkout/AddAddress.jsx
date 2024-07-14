@@ -14,8 +14,6 @@ export default function AddDeliveryAddressForm({ handleNext }) {
   const { auth } = useSelector((store) => store);
   const [selectedAddress, setSelectedAdress] = useState(null);
 
-  // console.log("auth", auth);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,7 +30,6 @@ export default function AddDeliveryAddressForm({ handleNext }) {
     };
 
     dispatch(createOrder({ address, jwt, navigate }));
-    // after perfoming all the opration
     handleNext();
   };
 
@@ -60,7 +57,7 @@ export default function AddDeliveryAddressForm({ handleNext }) {
                   color="primary"
                   onClick={()=>handleCreateOrder(item)}
                 >
-                  Deliverd Here
+                  Deliver Here
                 </Button>
               )}
             </div>
@@ -150,7 +147,7 @@ export default function AddDeliveryAddressForm({ handleNext }) {
                   variant="contained"
                   color="primary"
                 >
-                  Deliverd Here
+                  Deliver Here
                 </Button>
               </Grid>
             </Grid>

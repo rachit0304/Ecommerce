@@ -18,7 +18,7 @@ const Cart = () => {
   }, [jwt]);
   return (
     <div className="">
-      {cart.cartItems.length>0 && <div className="lg:grid grid-cols-3 lg:px-16 relative">
+      {cart.cartItems.length>0 ? <div className="lg:grid grid-cols-3 lg:px-16 relative">
         <div className="lg:col-span-2 lg:px-5 bg-white">
         <div className=" space-y-3">
           {cart.cartItems.map((item) => (
@@ -63,7 +63,7 @@ const Cart = () => {
           </Button>
         </div>
       </div>
-      </div>}
+      </div> : <><div className="text-red-700 text-center font-bold m-32">No items in the cart</div></>}
       
     </div>
   );

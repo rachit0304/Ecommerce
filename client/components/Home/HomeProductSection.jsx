@@ -33,9 +33,6 @@ const HomeProductSection = ({ section, data }) => {
     </div>
   ));
 
-  // const slideInFromRight = (t) => {
-  //   return `translateX(${100 - t * 100}%)`;
-  // };
 
   return (
     <div className="relative px-4 sm:px-6 lg:px-8 ">
@@ -50,7 +47,7 @@ const HomeProductSection = ({ section, data }) => {
           responsive={responsive}
           onSlideChanged={syncActiveIndex}
           animationType="fadeout"
-          animationDuration={2000}
+          animationDuration={1000}
         />
         {activeIndex !== items.length - 5 && (
           <Button

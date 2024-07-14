@@ -7,7 +7,7 @@ const BackdropComponent = ({open}) => {
          <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={open}
-            // onClick={handleLoderClose}
+            
           >
             <CircularProgress color="inherit" />
           </Backdrop>

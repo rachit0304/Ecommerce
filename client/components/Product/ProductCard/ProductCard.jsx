@@ -4,6 +4,7 @@ import{useLocation, useNavigate} from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const { title, brand, imageUrl, price ,discountedPrice,color,discountPersent} = product;
+
   const navigate= useNavigate();
   
 
