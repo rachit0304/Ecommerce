@@ -1,9 +1,7 @@
 const razorpay = require("../config/razorpayClient");
 const orderService=require("../services/order.service.js");
 
-const createPaymentLink= async (orderId)=>{
-    // const { amount, currency, receipt, notes } = reqData;
-    
+const createPaymentLink= async (orderId)=>{    
 
     try {
         
@@ -22,7 +20,7 @@ const createPaymentLink= async (orderId)=>{
             email: true,
           },
           reminder_enable: true,
-          callback_url: `https://codewithzosh-ecommerce-mern.vercel.app/payment/${orderId}`,
+          callback_url: `http://localhost:5173/payment/${orderId}`,
           callback_method: 'get',
         };
     
@@ -46,11 +44,10 @@ const createPaymentLink= async (orderId)=>{
 }
 
 const updatePaymentInformation=async(reqData)=>{
-    const paymentId = reqData.payment_id;
+  const paymentId = reqData.payment_id;
   const orderId = reqData.order_id;
 
   try {
-    // Fetch order details (You will need to implement the 'orderService.findOrderById' function)
     const order = await orderService.findOrderById(orderId);
 
     // Fetch the payment details using the payment ID
@@ -64,13 +61,11 @@ const updatePaymentInformation=async(reqData)=>{
       order.paymentDetails.status='COMPLETED'; 
       order.orderStatus='PLACED';
      
-
-     
       await order.save()
     }
     console.log( 'payment status',order);
     const resData = { message: 'Your order is placed', success: true };
-    return resData
+    return resData;
   } catch (error) {
     console.error('Error processing payment:', error);
     throw new Error(error.message)

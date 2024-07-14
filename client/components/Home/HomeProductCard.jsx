@@ -23,7 +23,7 @@ const HomeProductCard = ({ product,data }) => {
         <h3 className="text-lg font-medium text-gray-900">
           {product?.brand || product?.title}
         </h3>
-        <p className="mt-2 text-sm text-gray-500">{product?.title}</p>
+        <p className="mt-2 text-sm text-gray-500">{product?.title.slice(10)}{'...'}</p>
       </div>
     </div>
   );

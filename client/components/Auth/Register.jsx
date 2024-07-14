@@ -3,7 +3,7 @@ import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, register } from "../../src/Redux/Auth/Action";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function RegisterUserForm({ handleNext }) {
   const navigate = useNavigate();

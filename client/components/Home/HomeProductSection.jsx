@@ -1,29 +1,45 @@
 import AliceCarousel from "react-alice-carousel";
+import 'react-alice-carousel/lib/alice-carousel.css';
 import HomeProductCard from "./HomeProductCard";
 import "./HomeProductSection.css";
 import { Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useState } from "react";
+import React , { useRef, useState } from "react";
 
 const HomeProductSection = ({ section, data }) => {
  
   const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef(null);
 
-  const slidePrev = () => setActiveIndex(activeIndex - 1);
-  const slideNext = () => setActiveIndex(activeIndex + 1);
+  const slideNext = () => {
+    carouselRef.current.slideNext();
+  }
+  const slidePrev = () => {
+    carouselRef.current.slidePrev();
+
+  }
   const syncActiveIndex = ({ item }) => setActiveIndex(item);
 
   const responsive = {
     0: {
+      items: 1,
+      itemsFit: "contain",
+    },
+    600:{
       items: 2,
       itemsFit: "contain",
     },
-    568: {
+    768: {
       items: 3,
       itemsFit: "contain",
     },
-    1024: {
-      items: 5.5,
+    1020:{
+      items:3,
+      itemsFit: "contain",
+
+    },
+    1245: {
+      items: 4.2 ,
       itemsFit: "contain",
     },
   };
@@ -42,6 +58,7 @@ const HomeProductSection = ({ section, data }) => {
       <div className="relative border p-5">
         <AliceCarousel
           disableButtonsControls
+          ref={carouselRef}
           disableDotsControls
           mouseTracking
           items={items}
@@ -51,7 +68,7 @@ const HomeProductSection = ({ section, data }) => {
           animationType="fadeout"
           animationDuration={1000}
         />
-        {activeIndex !== items.length - 5 && (
+        {activeIndex < items.length - 5 && (
           <Button
             onClick={slideNext}
             variant="contained"
@@ -72,7 +89,7 @@ const HomeProductSection = ({ section, data }) => {
           </Button>
         )}
 
-        {activeIndex !== 0 && (
+        {activeIndex > 0 && (
           <Button
             onClick={slidePrev}
             variant="contained"

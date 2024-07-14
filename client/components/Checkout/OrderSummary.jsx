@@ -12,12 +12,12 @@ const OrderSummary = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-const orderId = searchParams.get("order_id");
-const dispatch=useDispatch();
+  const orderId = searchParams.get("order_id");
+  const dispatch=useDispatch();
   const jwt=localStorage.getItem("jwt");
-  const {order}=useSelector(state=>state)
+  const {order}=useSelector((store)=>store)
+  console.log("ordrer" , order);
 
-console.log("orderId ", order)
 
 useEffect(()=>{
   
@@ -38,7 +38,7 @@ const handleCreatePayment=()=>{
       <div className="lg:grid grid-cols-3 relative justify-between">
         <div className="lg:col-span-2 ">
           <div className=" space-y-3">
-            {order.order?.orderItems.map((item) => (
+            {order?.order?.orderItems.map((item) => (
               <>
                 <CartItem item={item} showButton={false}/>
               </>

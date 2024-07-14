@@ -41,7 +41,7 @@ export default function Product() {
   const jwt = localStorage.getItem("jwt");
   const param = useParams();
   const { customersProduct } = useSelector((store) => store);
-  console.log("cproducts===" , customersProduct);
+
   const location = useLocation();
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
 
@@ -49,7 +49,7 @@ export default function Product() {
     setIsLoaderOpen(false);
   };
 
-  // const filter = decodeURIComponent(location.search);
+
   const decodedQueryString = decodeURIComponent(location.search);
   const searchParams = new URLSearchParams(decodedQueryString);
   const colorValue = searchParams.get("color");
@@ -112,17 +112,15 @@ export default function Product() {
       if (filterValues.length === 0) {
         searchParams.delete(sectionId);
       }
-      console.log("includes");
+     
     } else {
-      // Remove all values for the current section
-      // searchParams.delete(sectionId);
+
       filterValues.push(value);
     }
 
     if (filterValues.length > 0)
       searchParams.set(sectionId, filterValues.join(","));
 
-    // history.push({ search: searchParams.toString() });
     const query = searchParams.toString();
     navigate({ search: `?${query}` });
   };
@@ -196,7 +194,7 @@ export default function Product() {
                         as="div"
                         key={section.id}
                         className="border-t border-gray-200 px-4 py-6"
-                        // open={false}
+                        
                       >
                         {({ open }) => (
                           <>
@@ -247,12 +245,78 @@ export default function Product() {
                                     </label>
                                   </div>
                                 ))}
+                                
                               </div>
+                              
                             </Disclosure.Panel>
                           </>
                         )}
                       </Disclosure>
                     ))}
+                     {singleFilter.map((section) => (
+                     <Disclosure
+                     as="div"
+                     key={section.id}
+                     className="border-t border-gray-200 px-4 py-6"
+                     
+                   >
+                     {({ open }) => (
+                       <>
+                         <h3 className="-mx-2 -my-3 flow-root">
+                           <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
+                             <span className="font-medium text-gray-900">
+                               {section.name}
+                             </span>
+                             <span className="ml-6 flex items-center">
+                               {open ? (
+                                 <MinusIcon
+                                   className="h-5 w-5"
+                                   aria-hidden="true"
+                                 />
+                               ) : (
+                                 <PlusIcon
+                                   className="h-5 w-5"
+                                   aria-hidden="true"
+                                 />
+                               )}
+                             </span>
+                           </Disclosure.Button>
+                         </h3>
+                         <Disclosure.Panel className="pt-6">
+                           <div className="space-y-6">
+                             {section.options.map((option, optionIdx) => (
+                               <div
+                                 key={option.value}
+                                 className="flex items-center"
+                               >
+                                 <input
+                                   id={`filter-mobile-${section.id}-${optionIdx}`}
+                                   name={`${section.id}[]`}
+                                   defaultValue={option.value}
+                                   type="checkbox"
+                                   defaultChecked={option.checked}
+                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                   onChange={() =>
+                                     handleFilter(option.value, section.id)
+                                   }
+                                 />
+                                 <label
+                                   htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                   className="ml-3 min-w-0 flex-1 text-gray-500"
+                                   // onClick={()=>handleFilter(option.value,section.id)}
+                                 >
+                                   {option.label}
+                                 </label>
+                               </div>
+                             ))}
+                             
+                           </div>
+                           
+                         </Disclosure.Panel>
+                       </>
+                     )}
+                   </Disclosure>
+                  ))}
                   </form>
                 </Dialog.Panel>
               </Transition.Child>
@@ -440,6 +504,7 @@ export default function Product() {
                                 {section.options.map((option, optionIdx) => (
                                   <FormControlLabel
                                     value={option.value}
+                                    key={optionIdx}
                                     control={<Radio />}
                                     label={option.label}
                                     onChange={(e) =>
@@ -459,8 +524,8 @@ export default function Product() {
                 {/* Product grid */}
                 <div className="lg:col-span-4 w-full ">
                   <div className="flex flex-wrap justify-center bg-white border py-5 rounded-md ">
-                    {customersProduct.products && customersProduct?.products?.content?.map((item) => (
-                      <ProductCard product={item} />
+                    {customersProduct.products && customersProduct?.products?.content?.map((item,idx) => (
+                      <ProductCard product={item} key={idx} />
                     ))}
                   </div>
                 </div>

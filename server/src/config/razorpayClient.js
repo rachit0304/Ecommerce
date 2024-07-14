@@ -1,7 +1,7 @@
 const Razorpay = require('razorpay');
 
-apiKey="rzp_test_kTsRSaDC8hwztX"
-apiSecret="LieoD1s9mxMIv569PcgRDMcU"
+apiKey="rzp_test_OH63sO289RSQu8"
+apiSecret="pP9p2sPB864NBvTMs5cCufNs"
 
 const razorpay = new Razorpay({
     key_id: apiKey,
