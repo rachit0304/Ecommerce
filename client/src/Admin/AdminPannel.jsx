@@ -37,9 +37,6 @@ const menu = [
   {name:"Products",path:"/admin/products"},
   {name:"Customers",path:"/admin/customers"},
   {name:"Orders",path:"/admin/orders"},
-  {name:"Total Earnings",path:"/admin"},
-  {name:"Weekly Overview",path:"/admin"},
-  {name:"Monthly Overview",path:"/admin"},
   {name:"Add Product",path:"/admin/product/create"},
 ];
 
@@ -91,7 +88,7 @@ export default function AdminPannel() {
 
       <List sx={{ position: "absolute", bottom: 0, width: "100%" }}>
         <Divider />
-       
+
         <ListItem onClick={handleLogout}  disablePadding >
             <ListItemButton>
             <Avatar
@@ -109,7 +106,6 @@ export default function AdminPannel() {
               <ListItemText className="ml-5" primary={"Logout"} />
             </ListItemButton>
           </ListItem>
-        
       </List>
     </Box>
   );
