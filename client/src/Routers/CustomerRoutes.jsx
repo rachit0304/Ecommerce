@@ -15,7 +15,7 @@ import { customerTheme } from "../../public/customeThem";
 import Order from "../../components/orders/Order";
 import OrderDetails from "../../components/orders/OrderDetails";
 import Checkout from "../../components/Checkout/Checkout";
-import Footer from "../../components/footer/Footer";
+import Footer from '../../components/footer/Footer'
 import PaymentSuccess from "../../components/paymentSuccess/PaymentSuccess";
 import RateProduct from "../../components/ReviewProduct/RateProduct";
 import NotFound from "../Pages/Notfound"
