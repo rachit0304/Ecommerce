@@ -15,7 +15,6 @@ import { customerTheme } from "../../public/customeThem";
 import Order from "../../components/orders/Order";
 import OrderDetails from "../../components/orders/OrderDetails";
 import Checkout from "../../components/Checkout/Checkout";
-import Footer from '../../components/footer/Footer'
 import PaymentSuccess from "../../components/paymentSuccess/PaymentSuccess";
 import RateProduct from "../../components/ReviewProduct/RateProduct";
 import NotFound from "../Pages/Notfound"
@@ -31,9 +30,8 @@ const CustomerRoutes = () => {
     <ThemeProvider theme={customerTheme}>
     {showNavigation && <Navigation />}
      <Routes>
-     <Route path="/login" element={<Homepage />}></Route>
-     <Route path="/register" element={<Homepage />}></Route>
-
+        <Route path="/login" element={<Homepage />}></Route>
+        <Route path="/register" element={<Homepage />}></Route>
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/home" element={<Homepage />}></Route>
         <Route path="/about" element={<About />}></Route>
@@ -50,7 +48,6 @@ const CustomerRoutes = () => {
         <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer/>
     </ThemeProvider>
       
     </div>
