@@ -78,13 +78,7 @@ const Footer = () => {
               Made with love by Rachit Sharma
             </Typography>
 
-            <Typography variant='body2' component="p" align='center'>
-              Icons made by {' '}
-              <Link href="">Freepik {''}</Link>
-              from{' '}
-              <Link href="https://www.flaticon.com/">
-              www.flaticon.com</Link>
-            </Typography>
+
           </Grid>
 
       </Grid>

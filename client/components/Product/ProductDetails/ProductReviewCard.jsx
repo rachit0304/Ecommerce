@@ -40,6 +40,7 @@ const ProductReviewCard = ({item}) => {
                 name="half-rating"
                 defaultValue={2.5}
                 precision={0.5}
+                readOnly
               />
              
             </div>

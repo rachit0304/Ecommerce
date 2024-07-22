@@ -23,14 +23,9 @@ export default function Checkout() {
   const queryParams = new URLSearchParams(location.search);
   const step = queryParams.get('step');
   const navigate=useNavigate();
- 
-console.log("step",step)
-
 
   const handleNext = () => {
     let newSkipped = skipped;
-   
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
@@ -39,15 +34,9 @@ console.log("step",step)
     navigate(`/checkout?step=${step-1}`)
   };
 
-
-
   const handleReset = () => {
     setActiveStep(0);
   };
-
-  const handlePayment=()=>{
-    console.log("handle payment")
-  }
 
   return (
     <Box className="px-5 lg:px-32 " sx={{ width: "100%" }}>
