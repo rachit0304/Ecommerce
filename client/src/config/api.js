@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-const LOCALHOST='http://localhost:5000'
+const LOCALHOST='https://ecommerce-ddfu.onrender.com/'
 
 export const API_BASE_URL = LOCALHOST;
 

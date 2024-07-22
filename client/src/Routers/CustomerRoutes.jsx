@@ -23,11 +23,8 @@ import NotFound from "../Pages/Notfound"
 const CustomerRoutes = () => {
     const location = useLocation();
     
-  
-    // Only show Navigation component when not on the NotFound page
     const showNavigation = location.pathname !== "*";
 
-    // const path=["/","/home","/about","/privacy-policy","/terms-condition","/contact","/men",`/product/${productId}`]
   return (
     <div>
     

@@ -3,9 +3,9 @@ import axios from "axios";
 
 import { API_BASE_URL } from "../../../config/api";
 import {
-    ADD_ITEM_TO_CART_REQUEST,
-    ADD_ITEM_TO_CART_SUCCESS,
-    ADD_ITEM_TO_CART_FAILURE,
+  ADD_ITEM_TO_CART_REQUEST,
+  ADD_ITEM_TO_CART_SUCCESS,
+  ADD_ITEM_TO_CART_FAILURE,
   GET_CART_FAILURE,
   GET_CART_REQUEST,
   GET_CART_SUCCESS,
@@ -94,7 +94,7 @@ export const removeCartItem = (reqData) => async (dispatch) => {
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
-            : error.message,
+            : error.message,  
       });
     }
   };
