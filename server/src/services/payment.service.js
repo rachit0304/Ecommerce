@@ -29,8 +29,6 @@ const createPaymentLink= async (orderId)=>{
         const paymentLinkId = paymentLink.id;
         const payment_link_url = paymentLink.short_url;
     
-     
-    
         // Return the payment link URL and ID in the response
         const resData = {
           paymentLinkId: paymentLinkId,
