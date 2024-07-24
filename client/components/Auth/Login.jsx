@@ -24,6 +24,7 @@ export default function LoginUserForm({ handleNext }) {
     useEffect(() => {
       if (auth.user || auth.error) setOpenSnackBar(true)
     }, [auth.user]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -33,7 +34,7 @@ export default function LoginUserForm({ handleNext }) {
       password: data.get("password"),
      
     }
-    console.log("login user",userData);
+    console.log("login user", userData.email);
   
     dispatch(login(userData));
 
